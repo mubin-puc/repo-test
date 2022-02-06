@@ -5,7 +5,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudrock-cicd-poc
+  name: cloudrock-cicd-dev
 spec:
   destination:
     name: ''
@@ -27,7 +27,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudrock-cicd-poc
+  name: cloudrock-cicd-stg
 spec:
   destination:
     name: ''
@@ -49,7 +49,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudrock-cicd-poc
+  name: cloudrock-cicd-preprod
 spec:
   destination:
     name: ''
@@ -68,7 +68,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudrock-cicd-poc
+  name: cloudrock-cicd-prod
 spec:
   destination:
     name: ''
