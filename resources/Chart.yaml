@@ -1,5 +1,5 @@
 apiVersion: v2
-name: CloudRock CI/CD PoC
+name: cloudrock-cicd-poc
 description: Dockerized Node JS Application
 type: application
 version: 0.0.1

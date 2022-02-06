@@ -1,15 +1,7 @@
-################################################################
-# Licensed Materials - Property of IBM
-# Automation PaaS - Test Runner for Argo CD
-# Copyright IBM Corporation 2022. All Rights Reserved.
-# U.S. Government Users Restricted Rights:
-# Use, duplication, or disclosure restricted by IBM Corporation.
-################################################################
-
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: test-runner-
+  name: test-runner-{{ .Values.environment }}
   namespace: {{ .Values.namespace }}
   labels:
     type: host
@@ -20,7 +12,6 @@ spec:
   template:
     spec:
       serviceAccountName: {{ .Values.trServiceAccount }}
-      automountServiceAccountToken: false
       restartPolicy: Never
       containers:
         - name: test-runner-container

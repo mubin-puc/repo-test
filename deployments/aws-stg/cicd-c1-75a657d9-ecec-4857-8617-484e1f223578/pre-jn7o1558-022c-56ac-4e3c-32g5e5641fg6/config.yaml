@@ -2,10 +2,10 @@ region: us-east
 prebindingId: pre-bp7o1558-022c-98bc-4e3c-45g5e5641fg7
 instance:
   id: fg29ce02-5b56-200f-4b0c-8514612k4m8l
-  name: node-js-app
+  name: node-web-app
   crn: "placeholder"
   createdAt: '1633366800000' 
 cluster:
   id: 67a657d9-ecec-4857-8617-484e1f223578
   url: https://api.dp-argocd-rosa.harl.p1.openshiftapps.com:6443
-  namespace: node-js-app-2
+  namespace: node-web-app-2

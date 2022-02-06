@@ -1,0 +1,10 @@
+application: node-web-app-preprod
+version: 1.2.0
+port: 80
+host: 0.0.0.0
+containerPort: 8080
+environment: pre-production
+trImagePullSecret: cicd-tr-ps-preprod
+trSecret: cicd-tr-secret-preprod
+trServiceAccount: cicd-tr-sa-preprod
+trClusterRoleBinding: cicd-tr-crb-preprod

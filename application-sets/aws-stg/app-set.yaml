@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: node-js-app-stg
+  name: node-web-app-stg
 spec:
   generators:
   - git:
@@ -11,12 +11,12 @@ spec:
       - path: deployments/aws-stg/**/config.yaml
   template:
     metadata:
-      name: 'node-js-app-{{instance.id}}'
+      name: node-web-app-{{instance.id}}
       labels:
         cloud: aws
         environment: staging
-        region: '{{ region }}'
-        instance: '{{ instance.id }}'
+        region: "{{ region }}"
+        instance: "{{ instance.id }}"
     spec:
       project: cicd
       source:
@@ -24,14 +24,12 @@ spec:
         targetRevision: HEAD
         path: resources
         plugin:
-          name: argocd-vault-plugin-helm
+          name: argocd-vault-plugin-kustomize-helm
           env:
             - name: HELM_VALUES
-              value: --values values.yaml
+              value: --values values-stg.yaml
             - name: HELM_ARGS
-              value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt }},server={{ cluster.url }},namespace={{ cluster.namespace }},environment=staging,region={{ region }}
-            - name: HELM_COMMAND
-              value: helm template $HELM_VALUES $HELM_ARGS .
+              value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt }},server={{ cluster.url }},namespace={{ cluster.namespace }},region={{ region }}
       destination:
-        server: '{{cluster.url}}'
-        namespace: '{{cluster.namespace}}'
+        server: "{{ cluster.url }}"
+        namespace: "{{ cluster.namespace }}"
