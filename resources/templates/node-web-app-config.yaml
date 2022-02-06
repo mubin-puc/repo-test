@@ -4,6 +4,6 @@ metadata:
   name: {{ .Values.application }}-config
   namespace: {{ .Values.namespace }}
 data:
-  VERSION: {{ .Values.version }}
-  HOST: {{ .Values.host }}
-  PORT: {{ .Values.containerPort }}
+  VERSION: "{{ .Values.version }}"
+  HOST: "{{ .Values.host }}"
+  PORT: "{{ .Values.containerPort }}"
