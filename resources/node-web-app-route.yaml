@@ -2,9 +2,9 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   name: node-web-app-route
-  namespace: node-web-project
+  namespace: cloudrock-cicd-poc
 spec:
-  host: node-web-app-service-node-web-project.mycluster-120885-a286db53404b3bb06d7b0588f942fe63-0000.us-south.containers.appdomain.cloud
+  host: node-web-app-service-cloudrock-cicd-poc.apps.dp-argocd-rosa.harl.p1.openshiftapps.com
   to:
     kind: Service
     name: node-web-app-service

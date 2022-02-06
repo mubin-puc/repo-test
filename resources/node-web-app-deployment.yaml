@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: node-web-app-deployment
-  namespace: node-web-project
+  namespace: cloudrock-cicd-poc
 spec:
   selector:
     matchLabels:
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: node-web-app
-        image: image-registry.openshift-image-registry.svc:5000/node-web-project/web-node-app:latest
+        image: docker.io/sfonseca95/dockerized-node-js:latest
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
