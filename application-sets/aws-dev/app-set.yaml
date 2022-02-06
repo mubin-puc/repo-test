@@ -1,0 +1,39 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: cloudrock-cicd-dev
+spec:
+  generators:
+  - git:
+      repoURL: https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git
+      revision: HEAD
+      files:
+      - path: deployments/aws-dev/**/config.yaml
+  template:
+    metadata:
+      name: 'node-js-app-{{instance.id}}'
+      labels:
+        cloud: aws
+        environment: development
+        region: '{{ region }}'
+        instance: '{{ instance.id }}'
+    spec:
+      ignoreDifferences:
+      - kind: ServiceAccount
+        jqPathExpressions:
+        - .imagePullSecrets[] | select(.name | contains("dockercfg"))
+      project: cicd
+      source:
+        repoURL: https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git
+        targetRevision: HEAD
+        path: resources
+        plugin:
+          name: argocd-vault-plugin-helm
+          env:
+            - name: HELM_VALUES
+              value: --values values.yaml
+            - name: HELM_ARGS
+              value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt }},server={{ cluster.url }},namespace={{ cluster.namespace }},environment=development,region={{ region }}
+      destination:
+        server: '{{cluster.url}}'
+        namespace: '{{cluster.namespace}}'
