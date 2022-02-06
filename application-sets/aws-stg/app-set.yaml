@@ -30,6 +30,8 @@ spec:
               value: --values values.yaml
             - name: HELM_ARGS
               value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt }},server={{ cluster.url }},namespace={{ cluster.namespace }},environment=staging,region={{ region }}
+            - name: HELM_COMMAND
+              value: helm template $HELM_VALUES $HELM_ARGS .
       destination:
         server: '{{cluster.url}}'
         namespace: '{{cluster.namespace}}'
