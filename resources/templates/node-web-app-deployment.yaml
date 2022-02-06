@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.application }}-deployment
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.application }}
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.application }}
+        version: {{ .Values.version }}
+    spec:
+      containers:
+      - name: {{ .Values.application }}
+        image: docker.io/sfonseca95/dockerized-node-js:latest
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: {{ .Values.application }}-config
+        ports:
+        - containerPort: {{ .Values.containerPort }}

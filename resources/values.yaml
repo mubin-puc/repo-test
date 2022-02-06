@@ -1,0 +1,5 @@
+application: node-web-app
+version: 1.1.9
+port: 80
+host: 0.0.0.0
+containerPort: 8080

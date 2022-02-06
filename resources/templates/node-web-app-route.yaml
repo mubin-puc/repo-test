@@ -1,0 +1,11 @@
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ .Values.application }}-route
+  namespace: {{ .Values.namespace }}
+spec:
+  host: {{ .Values.application }}-service-{{ .Values.namespace }}.apps.dp-argocd-rosa.harl.p1.openshiftapps.com
+  to:
+    kind: Service
+    name: {{ .Values.application }}-service
+    weight: 100
