@@ -21,7 +21,7 @@ spec:
       project: cicd
       source:
         repoURL: https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git
-        targetRevision: v1.0.0
+        targetRevision: HEAD
         path: resources
         plugin:
           name: argocd-vault-plugin-helm
