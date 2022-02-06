@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: {{ .Values.application }}-service
   namespace: {{ .Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "4"
 spec:
   ports:
   - port: {{ .Values.port }}

@@ -3,6 +3,8 @@ kind: Route
 metadata:
   name: {{ .Values.application }}-route
   namespace: {{ .Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "6"
 spec:
   host: {{ .Values.application }}-service-{{ .Values.namespace }}.apps.dp-argocd-rosa.harl.p1.openshiftapps.com
   to:
