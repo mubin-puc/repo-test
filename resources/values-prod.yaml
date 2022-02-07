@@ -1,9 +1,10 @@
+environment: production
 application: node-web-app-prod
+image: us.icr.io/cloudrock_cicd/dockerized-node-js:latest
 version: 1.2.0
 port: 80
 host: 0.0.0.0
 containerPort: 8080
-environment: production
 trImagePullSecret: cicd-tr-ps-prod
 trSecret: cicd-tr-secret-prod
 trServiceAccount: cicd-tr-sa-prod

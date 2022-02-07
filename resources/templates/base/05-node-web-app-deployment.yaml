@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.application }}
-        image: docker.io/sfonseca95/dockerized-node-js:latest
+        image: {{ .Values.image }}
         imagePullPolicy: Always
         envFrom:
         - configMapRef:

@@ -1,9 +1,10 @@
+environment: staging
 application: node-web-app-stg
+image: us.icr.io/cloudrock_cicd/dockerized-node-js:latest
 version: 1.2.0
 port: 80
 host: 0.0.0.0
 containerPort: 8080
-environment: staging
 trImagePullSecret: cicd-tr-ps-stg
 trSecret: cicd-tr-secret-stg
 trServiceAccount: cicd-tr-sa-stg
