@@ -24,7 +24,7 @@ spec:
         targetRevision: HEAD
         path: resources
         plugin:
-          name: argocd-vault-plugin-kustomize-helm
+          name: argocd-vault-plugin-helm
           env:
             - name: HELM_VALUES
               value: --values values-stg.yaml
