@@ -9,3 +9,7 @@ trImagePullSecret: cicd-tr-ps-stg
 trSecret: cicd-tr-secret-stg
 trServiceAccount: cicd-tr-sa-stg
 trClusterRoleBinding: cicd-tr-crb-stg
+
+replacementExample1: value-1
+replacementExample2: value-2
+replacementExample3: value-3

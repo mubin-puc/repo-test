@@ -9,3 +9,7 @@ trImagePullSecret: cicd-tr-ps-preprod
 trSecret: cicd-tr-secret-preprod
 trServiceAccount: cicd-tr-sa-preprod
 trClusterRoleBinding: cicd-tr-crb-preprod
+
+replacementExample1: value-1
+replacementExample2: value-2
+replacementExample3: value-3
