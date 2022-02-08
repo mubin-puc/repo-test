@@ -15,9 +15,13 @@ spec:
       labels:
         cloud: aws
         environment: pre-production
-        region: "{{ region }}"
-        instance: "{{ instance.id }}"
+        region: '{{ region }}'
+        instance: '{{ instance.id }}'
     spec:
+      ignoreDifferences:
+      - kind: ServiceAccount
+        jqPathExpressions:
+        - .imagePullSecrets[] | select(.name | contains("dockercfg"))
       project: cicd
       source:
         repoURL: https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git
@@ -33,5 +37,5 @@ spec:
             - name: HELM_PATH
               value: cloudrock-cicd-poc
       destination:
-        server: "{{ cluster.url }}"
-        namespace: "{{ cluster.namespace }}"
+        server: '{{ cluster.url }}'
+        namespace: '{{ cluster.namespace }}'

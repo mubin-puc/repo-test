@@ -15,9 +15,13 @@ spec:
       labels:
         cloud: aws
         environment: staging
-        region: "{{ region }}"
-        instance: "{{ instance.id }}"
+        region: '{{ region }}'
+        instance: '{{ instance.id }}'
     spec:
+      ignoreDifferences:
+      - kind: ServiceAccount
+        jqPathExpressions:
+        - .imagePullSecrets[] | select(.name | contains("dockercfg"))
       project: cicd
       source:
         repoURL: https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git
@@ -31,5 +35,5 @@ spec:
             - name: HELM_ARGS
               value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt }},server={{ cluster.url }},namespace={{ cluster.namespace }},region={{ region }}
       destination:
-        server: "{{ cluster.url }}"
-        namespace: "{{ cluster.namespace }}"
+        server: '{{ cluster.url }}'
+        namespace: '{{ cluster.namespace }}'
