@@ -1,5 +1,5 @@
 application: node-web-app-dev
-applicationSetPath: application-sets/aws-dev/app-set.yaml
+applicationSetPath: application-sets/aws-dev/app-stg.yaml
 clusterRoleBinding: cicd-crb-dev
 containerPort: 8080
 deploymentPromoterSecret: cicd-dp-secret-dev
@@ -10,7 +10,7 @@ image: sfonseca95/dockerized-node-js:latest
 imagePullSecret: cicd-ips-dev
 port: 80
 promotionEnvironment: staging
-replacements: "resources/values/values-dev.yaml replacementExample1:new-value-1;resources/values/values-dev.yaml replacementExample2:new-value-2;resources/values/values-dev.yaml replacementExample3:new-value-3"
+replacements: "resources/values/values-stg.yaml replacementExample1:new-value-1;resources/values/values-stg.yaml replacementExample2:new-value-2;resources/values/values-stg.yaml replacementExample3:new-value-3"
 replacementExample1: value-1
 replacementExample2: value-2
 replacementExample3: value-3

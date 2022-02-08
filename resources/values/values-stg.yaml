@@ -1,5 +1,5 @@
 application: node-web-app-stg
-applicationSetPath: application-sets/aws-stg/app-set.yaml
+applicationSetPath: application-sets/aws-preprod/app-set.yaml
 clusterRoleBinding: cicd-crb-stg
 containerPort: 8080
 deploymentPromoterSecret: cicd-dp-secret-stg
@@ -10,7 +10,7 @@ image: sfonseca95/dockerized-node-js:latest
 imagePullSecret: cicd-ips-stg
 port: 80
 promotionEnvironment: pre-production
-replacements: "resources/values/values-stg.yaml replacementExample1:new-value-1;resources/values/values-stg.yaml replacementExample2:new-value-2;resources/values/values-stg.yaml replacementExample3:new-value-3"
+replacements: "resources/values/values-preprod.yaml replacementExample1:new-value-1;resources/values/values-preprod.yaml replacementExample2:new-value-2;resources/values/values-preprod.yaml replacementExample3:new-value-3"
 replacementExample1: value-1
 replacementExample2: value-2
 replacementExample3: value-3

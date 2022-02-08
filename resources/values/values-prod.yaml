@@ -1,5 +1,4 @@
 application: node-web-app-prod
-applicationSetPath: application-sets/aws-prod/app-set.yaml
 clusterRoleBinding: cicd-crb-prod
 containerPort: 8080
 deploymentPromoterSecret: cicd-dp-secret-prod
@@ -10,10 +9,6 @@ image: sfonseca95/dockerized-node-js:latest
 imagePullSecret: cicd-ips-prod
 port: 80
 promotionEnvironment: None
-replacements: "resources/values/values-prod.yaml replacementExample1:new-value-1;resources/values/values-prod.yaml replacementExample2:new-value-2;resources/values/values-prod.yaml replacementExample3:new-value-3"
-replacementExample1: value-1
-replacementExample2: value-2
-replacementExample3: value-3
 serviceAccount: cicd-sa-prod
 testList: https://raw.github.ibm.com/automation-saas/CICD-Test-Configuration/main/test-list-samples/success-tests.json?token=AABTMOJFKZOOF6UDZ6GGOBDCBNEH2
 testListTags: sample
