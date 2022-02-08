@@ -1,15 +1,14 @@
-environment: pre-production
 application: node-web-app-preprod
-image: us.icr.io/cloudrock_cicd/dockerized-node-js:latest
-version: 1.2.0
-port: 80
-host: 0.0.0.0
 containerPort: 8080
-trImagePullSecret: cicd-tr-ps-preprod
-trSecret: cicd-tr-secret-preprod
-trServiceAccount: cicd-tr-sa-preprod
-trClusterRoleBinding: cicd-tr-crb-preprod
-
+environment: development
+host: 0.0.0.0
+image: us.icr.io/cloudrock_cicd/dockerized-node-js:latest
+port: 80
 replacementExample1: value-1
 replacementExample2: value-2
 replacementExample3: value-3
+trClusterRoleBinding: cicd-tr-crb-preprod
+trImagePullSecret: cicd-tr-ps-preprod
+trSecret: cicd-tr-secret-preprod
+trServiceAccount: cicd-tr-sa-preprod
+version: 1.2.0

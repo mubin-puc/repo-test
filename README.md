@@ -13,7 +13,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-dev
-    repoURL: 'https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git'
     targetRevision: HEAD
   project: application-sets
   syncPolicy:
@@ -35,7 +35,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-stg
-    repoURL: 'https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git'
     targetRevision: HEAD
   project: application-sets
   syncPolicy:
@@ -57,7 +57,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-preprod
-    repoURL: 'https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git'
     targetRevision: HEAD
   project: application-sets
 
@@ -76,7 +76,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-prod
-    repoURL: 'https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git'
     targetRevision: HEAD
   project: application-sets
 

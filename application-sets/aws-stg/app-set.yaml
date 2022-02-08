@@ -5,35 +5,37 @@ metadata:
 spec:
   generators:
   - git:
-      repoURL: https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git
-      revision: HEAD
       files:
       - path: deployments/aws-stg/**/config.yaml
+      repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
+      revision: HEAD
   template:
     metadata:
-      name: node-web-app-{{instance.id}}
       labels:
         cloud: aws
         environment: staging
-        region: '{{ region }}'
         instance: '{{ instance.id }}'
+        region: '{{ region }}'
+      name: node-web-app-{{instance.id}}
     spec:
+      destination:
+        namespace: '{{ cluster.namespace }}'
+        server: '{{ cluster.url }}'
       ignoreDifferences:
-      - kind: ServiceAccount
-        jqPathExpressions:
+      - jqPathExpressions:
         - .imagePullSecrets[] | select(.name | contains("dockercfg"))
+        kind: ServiceAccount
       project: cicd
       source:
-        repoURL: https://github.ibm.com/sujeily-fonseca/cloudrock-cicd-poc.git
-        targetRevision: HEAD
         path: resources
         plugin:
-          name: argocd-vault-plugin-helm
           env:
-            - name: HELM_VALUES
-              value: --values values-stg.yaml
-            - name: HELM_ARGS
-              value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt }},server={{ cluster.url }},namespace={{ cluster.namespace }},region={{ region }}
-      destination:
-        server: '{{ cluster.url }}'
-        namespace: '{{ cluster.namespace }}'
+          - name: HELM_VALUES
+            value: --values values-stg.yaml
+          - name: HELM_ARGS
+            value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt
+              }},server={{ cluster.url }},namespace={{ cluster.namespace }},region={{
+              region }}
+          name: argocd-vault-plugin-helm
+        repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
+        targetRevision: deaceedf8d2d763b907c92b8adea3eba4fdee666

@@ -1,15 +1,14 @@
-environment: production
 application: node-web-app-prod
-image: us.icr.io/cloudrock_cicd/dockerized-node-js:latest
-version: 1.2.0
-port: 80
-host: 0.0.0.0
 containerPort: 8080
-trImagePullSecret: cicd-tr-ps-prod
-trSecret: cicd-tr-secret-prod
-trServiceAccount: cicd-tr-sa-prod
-trClusterRoleBinding: cicd-tr-crb-prod
-
+environment: development
+host: 0.0.0.0
+image: us.icr.io/cloudrock_cicd/dockerized-node-js:latest
+port: 80
 replacementExample1: value-1
 replacementExample2: value-2
 replacementExample3: value-3
+trClusterRoleBinding: cicd-tr-crb-prod
+trImagePullSecret: cicd-tr-ps-prod
+trSecret: cicd-tr-secret-prod
+trServiceAccount: cicd-tr-sa-prod
+version: 1.2.0
