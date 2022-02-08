@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: deployment-promoter-{{ .Values.environment }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    type: host
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount }}
+      restartPolicy: Never
+      containers:
+        - name: deployment-promoter-container
+          image: us.icr.io/cloudrock_cicd/deployment-promoter:stable
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: {{ .Values.deploymentPromoterSecret }}
+          resources:
+            limits:
+              cpu: "500m"
+            requests:
+              cpu: "250m"
+  parallelism: 1
+  backoffLimit: 0

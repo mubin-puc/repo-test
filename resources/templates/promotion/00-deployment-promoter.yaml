@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.deploymentPromoterSecret }}
+  namespace: {{ .Values.namespace }}
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+type: Opaque
+data:
+  GITHUB_TOKEN: <path:cloudrock/cicd/github-token#cloudrock/cicd/github-token | base64encode>
+stringData:
+  APPLICATION_SET_PATH: {{ .Values.applicationSetPath }}
+  GITHUB_BRANCH: {{ .Values.githubBranch }}
+  GITHUB_ORG: "automation-paas-cd-pipeline"
+  GITHUB_REPO: "https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git"
+  REPLACEMENTS: "sujeily-fonseca"
+  PR_ASSIGNEE: "sujeily-fonseca"
+  PROMOTION_ENVIRONMENT: {{ .Values.promotionEnvironment }}
