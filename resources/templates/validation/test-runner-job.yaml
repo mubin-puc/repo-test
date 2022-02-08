@@ -11,7 +11,7 @@ metadata:
 spec:
   template:
     spec:
-      serviceAccountName: {{ .Values.trServiceAccount }}
+      serviceAccountName: {{ .Values.serviceAccount }}
       restartPolicy: Never
       containers:
         - name: test-runner-container
@@ -19,7 +19,7 @@ spec:
           imagePullPolicy: Always
           envFrom:
             - secretRef:
-                name: {{ .Values.trSecret }}
+                name: {{ .Values.testRunnerSecret }}
           resources:
             limits:
               cpu: "500m"

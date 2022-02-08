@@ -31,7 +31,7 @@ spec:
         plugin:
           env:
           - name: HELM_VALUES
-            value: --values values-stg.yaml
+            value: --values values/values-stg.yaml
           - name: HELM_ARGS
             value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt
               }},server={{ cluster.url }},namespace={{ cluster.namespace }},region={{
