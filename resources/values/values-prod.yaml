@@ -10,7 +10,7 @@ image: sfonseca95/dockerized-node-js:latest
 imagePullSecret: cicd-ips-prod
 port: 80
 promotionEnvironment: production
-replacements: "resources/values-prod.yaml replacementExample1:new-value-1;resources/values-prod.yaml replacementExample2:new-value-2;resources/values-prod.yaml replacementExample3:new-value-3"
+replacements: "resources/values/values-prod.yaml replacementExample1:new-value-1;resources/values/values-prod.yaml replacementExample2:new-value-2;resources/values/values-prod.yaml replacementExample3:new-value-3"
 replacementExample1: value-1
 replacementExample2: value-2
 replacementExample3: value-3
