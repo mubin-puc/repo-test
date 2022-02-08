@@ -1,7 +1,7 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  name: test-runner-{{ .Values.environment }}
+  generateName: test-runner-
   namespace: {{ .Values.namespace }}
   labels:
     type: host
