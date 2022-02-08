@@ -39,3 +39,7 @@ spec:
           name: argocd-vault-plugin-helm
         repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
         targetRevision: HEAD
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true

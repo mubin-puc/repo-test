@@ -1,5 +1,5 @@
 application: node-web-app-dev
-applicationSetPath: application-sets/aws-dev/app-stg.yaml
+applicationSetPath: application-sets/aws-stg/app-set.yaml
 clusterRoleBinding: cicd-crb-dev
 containerPort: 8080
 deploymentPromoterSecret: cicd-dp-secret-dev
