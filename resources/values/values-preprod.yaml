@@ -15,5 +15,7 @@ replacementExample1: value-1
 replacementExample2: value-2
 replacementExample3: value-3
 serviceAccount: cicd-sa-preprod
+testList: https://raw.github.ibm.com/automation-saas/CICD-Test-Configuration/main/test-list-samples/failure-tests.json?token=AABTMOIJSCDXXQCLL2FNAALCBNEN2
+testListTags: sample
 testRunnerSecret: cicd-tr-secret-preprod
 version: 1.2.0
