@@ -38,4 +38,4 @@ spec:
               region }}
           name: argocd-vault-plugin-helm
         repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
-        targetRevision: deaceedf8d2d763b907c92b8adea3eba4fdee666
+        targetRevision: HEAD
