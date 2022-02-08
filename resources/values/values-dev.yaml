@@ -9,7 +9,7 @@ host: 0.0.0.0
 image: sfonseca95/dockerized-node-js:latest
 imagePullSecret: cicd-ips-dev
 port: 80
-promotionEnvironment: development
+promotionEnvironment: staging
 replacements: "resources/values/values-dev.yaml replacementExample1:new-value-1;resources/values/values-dev.yaml replacementExample2:new-value-2;resources/values/values-dev.yaml replacementExample3:new-value-3"
 replacementExample1: value-1
 replacementExample2: value-2
