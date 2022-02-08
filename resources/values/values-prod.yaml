@@ -6,7 +6,7 @@ deploymentPromoterSecret: cicd-dp-secret-prod
 environment: development
 githubBranch: main
 host: 0.0.0.0
-image: us.icr.io/cloudrock_cicd/dockerized-node-js:latest
+image: docker.io/sfonseca95/dockerized-node-js:latest
 imagePullSecret: cicd-ips-prod
 port: 80
 promotionEnvironment: staging
