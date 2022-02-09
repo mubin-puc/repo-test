@@ -1,19 +1,16 @@
 application: node-web-app-preprod
-applicationSetPath: application-sets/aws-prod/app-set.yaml
 clusterRoleBinding: cicd-crb-preprod
 containerPort: 8080
 deploymentPromoterSecret: cicd-dp-secret-preprod
 environment: development
 githubBranch: main
 host: 0.0.0.0
-image: sfonseca95/dockerized-node-js:latest
+image: us.icr.io/cloudrock_cicd/dockerized-node-js:v1.0
 imagePullSecret: cicd-ips-preprod
 port: 80
-promotionEnvironment: production
-replacements: "resources/values/values-prod.yaml replacementExample1:new-value-1;resources/values/values-prod.yaml replacementExample2:new-value-2;resources/values/values-prod.yaml replacementExample3:new-value-3"
-replacementExample1: value-1
-replacementExample2: value-2
-replacementExample3: value-3
+promotionEnv: production
+promotionEnvAppSet: application-sets/aws-prod/app-set.yaml
+replacements: "resources/values/values-stg.yaml image,us.icr.io/cloudrock_cicd/dockerized-node-js:v1.1"
 serviceAccount: cicd-sa-preprod
 testList: https://raw.github.ibm.com/automation-saas/CICD-Test-Configuration/main/test-list-samples/failure-tests.json?token=AABTMOIJSCDXXQCLL2FNAALCBNEN2
 testListTags: sample

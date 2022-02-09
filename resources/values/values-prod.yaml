@@ -5,10 +5,11 @@ deploymentPromoterSecret: cicd-dp-secret-prod
 environment: development
 githubBranch: main
 host: 0.0.0.0
-image: sfonseca95/dockerized-node-js:latest
+image: us.icr.io/cloudrock_cicd/dockerized-node-js:v1.0
 imagePullSecret: cicd-ips-prod
 port: 80
-promotionEnvironment: None
+promotionEnv: None
+promotionEnvAppSet: None
 serviceAccount: cicd-sa-prod
 testList: https://raw.github.ibm.com/automation-saas/CICD-Test-Configuration/main/test-list-samples/success-tests.json?token=AABTMOJFKZOOF6UDZ6GGOBDCBNEH2
 testListTags: sample
