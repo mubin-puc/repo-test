@@ -10,7 +10,7 @@ imagePullSecret: cicd-ips-preprod
 port: 80
 promotionEnv: production
 promotionEnvAppSet: application-sets/aws-prod/app-set.yaml
-replacements: "resources/values/values-stg.yaml image,us.icr.io/cloudrock_cicd/dockerized-node-js:v1.1"
+replacements: "resources/values/values-prod.yaml image,us.icr.io/cloudrock_cicd/dockerized-node-js:v1.1"
 serviceAccount: cicd-sa-preprod
 testList: https://raw.github.ibm.com/automation-saas/CICD-Test-Configuration/main/test-list-samples/failure-tests.json?token=AABTMOIJSCDXXQCLL2FNAALCBNEN2
 testListTags: sample

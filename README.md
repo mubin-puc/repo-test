@@ -20,6 +20,8 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
 ```
 
 ## Staging
@@ -42,6 +44,8 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
 ```
 
 ## Pre-Production
@@ -79,5 +83,4 @@ spec:
     repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git'
     targetRevision: HEAD
   project: application-sets
-
 ```

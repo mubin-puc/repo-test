@@ -10,6 +10,7 @@ imagePullSecret: cicd-ips-prod
 port: 80
 promotionEnv: None
 promotionEnvAppSet: None
+replacements: None
 serviceAccount: cicd-sa-prod
 testList: https://raw.github.ibm.com/automation-saas/CICD-Test-Configuration/main/test-list-samples/success-tests.json?token=AABTMOJFKZOOF6UDZ6GGOBDCBNEH2
 testListTags: sample
