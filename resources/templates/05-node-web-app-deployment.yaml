@@ -25,5 +25,5 @@ spec:
         - configMapRef:
             name: {{ .Values.application }}-config
         ports:
-        - containerPort: {{ .Values.containerPort }}
+        - containerPort: 8080
       automountServiceAccountToken: true

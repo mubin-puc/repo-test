@@ -7,5 +7,5 @@ metadata:
     argocd.argoproj.io/sync-wave: "3"
 data:
   VERSION: "{{ .Values.version }}"
-  HOST: "{{ .Values.host }}"
-  PORT: "{{ .Values.containerPort }}"
+  HOST: "0.0.0.0"
+  PORT: "8080"

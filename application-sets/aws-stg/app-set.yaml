@@ -31,11 +31,11 @@ spec:
         plugin:
           env:
           - name: HELM_VALUES
-            value: --values values/values-stg.yaml
+            value: --values values/values.yaml
           - name: HELM_ARGS
             value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt
               }},server={{ cluster.url }},namespace={{ cluster.namespace }},region={{
-              region }}
+              region }},environment=staging,promotionEnv=pre-production,promotionEnvAppSet=application-sets/aws-preprod/app-set.yaml
           name: argocd-vault-plugin-helm
         repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
         targetRevision: HEAD
