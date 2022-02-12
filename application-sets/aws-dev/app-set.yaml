@@ -6,7 +6,7 @@ spec:
   generators:
   - git:
       files:
-      - path: deployments/aws-dev/**/config.yaml
+      - path: applications/configurations/aws-dev/**/cluster-config.yaml
       repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
       revision: HEAD
   template:
@@ -27,15 +27,13 @@ spec:
         kind: ServiceAccount
       project: cicd
       source:
-        path: resources
+        path: applications
         plugin:
           env:
           - name: HELM_VALUES
-            value: --values values/values.yaml
+            value: --values values.yaml  --values configurations/aws-dev/environment-config.yaml
           - name: HELM_ARGS
-            value: --set instance.crn={{ instance.crn }},instance.createdAt={{ instance.createdAt
-              }},server={{ cluster.url }},namespace={{ cluster.namespace }},region={{
-              region }},environment=development,promotionEnv=staging,promotionEnvAppSet=application-sets/aws-stg/app-set.yaml
+            value: --set example=example
           name: argocd-vault-plugin-helm
         repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
         targetRevision: HEAD

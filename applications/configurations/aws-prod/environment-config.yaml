@@ -1,0 +1,3 @@
+environment: development
+promotionEnv: staging
+promotionEnvAppSet: application-sets/aws-stg/app-set.yaml
