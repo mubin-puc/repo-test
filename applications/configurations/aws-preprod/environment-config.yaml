@@ -1,3 +1,3 @@
-environment: development
-promotionEnv: staging
-promotionEnvAppSet: application-sets/aws-stg/app-set.yaml
+environment: pre-production
+promotionEnv: production
+promotionEnvAppSet: application-sets/aws-prod/application-set.yaml
