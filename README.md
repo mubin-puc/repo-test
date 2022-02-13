@@ -6,6 +6,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: cloudrock-cicd-dev
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: ''
@@ -30,6 +32,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: cloudrock-cicd-stg
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: ''
@@ -54,6 +58,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: cloudrock-cicd-preprod
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: ''
@@ -73,6 +79,8 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: cloudrock-cicd-prod
+  finalizers:
+  - resources-finalizer.argocd.argoproj.io
 spec:
   destination:
     name: ''
