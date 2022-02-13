@@ -27,7 +27,7 @@ spec:
         kind: ServiceAccount
       project: cicd
       source:
-        path: applications
+        path: resources
         plugin:
           env:
           - name: HELM_VALUES
