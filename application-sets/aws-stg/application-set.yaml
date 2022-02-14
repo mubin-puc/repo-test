@@ -6,7 +6,7 @@ spec:
   generators:
   - git:
       files:
-      - path: deployments/aws-stg/**/config.yaml
+      - path: resources/configurations/aws-stg/**/cluster-config.yaml
       repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
       revision: HEAD
   template:
@@ -31,7 +31,7 @@ spec:
         plugin:
           env:
           - name: HELM_VALUES
-            value: --values values.yaml --values configurations/aws-dev/environment-config.yaml
+            value: --values values.yaml --values configurations/aws-stg/environment-config.yaml
           - name: HELM_ARGS
             value: --set server={{ cluster.url }},namespace={{ cluster.namespace }}
           name: argocd-vault-plugin-helm
