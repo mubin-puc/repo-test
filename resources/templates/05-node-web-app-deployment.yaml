@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.application }}-deployment
+  name: "{{ .Values.application }}-deployment-{{ .Values.environment }}"
   namespace: {{ .Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "5"

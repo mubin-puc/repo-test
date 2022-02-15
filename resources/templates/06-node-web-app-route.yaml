@@ -1,7 +1,7 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ .Values.application }}-route
+  name: "{{ .Values.application }}-route-{{ .Values.environment }}"
   namespace: {{ .Values.namespace }}
   annotations:
     argocd.argoproj.io/sync-wave: "6"
