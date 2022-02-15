@@ -16,7 +16,7 @@ spec:
         environment: development
         instance: '{{ instance.id }}'
         region: '{{ region }}'
-      name: node-web-app-{{instance.id}}
+      name: node-web-app-dev-{{instance.id}}
     spec:
       destination:
         namespace: '{{ cluster.namespace }}'

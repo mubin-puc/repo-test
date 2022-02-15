@@ -16,7 +16,7 @@ spec:
         environment: staging
         instance: '{{ instance.id }}'
         region: '{{ region }}'
-      name: node-web-app-{{instance.id}}
+      name: node-web-app-stg-{{instance.id}}
     spec:
       destination:
         namespace: '{{ cluster.namespace }}'
