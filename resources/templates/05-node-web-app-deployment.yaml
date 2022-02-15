@@ -23,7 +23,7 @@ spec:
         imagePullPolicy: Always
         envFrom:
         - configMapRef:
-            name: {{ .Values.application }}-config
+            name: "{{ .Values.application }}-config-{{ .Values.environment }}"
         ports:
         - containerPort: 8080
       automountServiceAccountToken: true
