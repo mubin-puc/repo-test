@@ -31,7 +31,7 @@ spec:
         plugin:
           env:
           - name: HELM_VALUES
-            value: --values values.yaml --values configurations/aws-dev/environment-config.yaml
+            value: --values values.yaml --values configurations/aws-preprod/environment-config.yaml
           - name: HELM_ARGS
             value: --set server={{ cluster.url }},namespace={{ cluster.namespace }}
           name: argocd-vault-plugin-helm
