@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: node-web-appset-preprod
+  name: node-web-app-set-preprod
 spec:
   generators:
   - git:
