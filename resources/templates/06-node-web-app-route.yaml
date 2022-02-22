@@ -6,7 +6,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "6"
 spec:
-  host: {{ .Values.application }}-service-{{ .Values.namespace }}.apps.dp-argocd-rosa.harl.p1.openshiftapps.com
+  host: {{ .Values.host }}
   to:
     kind: Service
     name: {{ .Values.application }}-service
