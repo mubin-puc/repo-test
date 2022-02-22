@@ -1,1 +1,3 @@
 environment: production
+promotionEnv: None
+promotionEnvAppSet: None
