@@ -1,3 +1,4 @@
+awsToken: aws-token
 environment: production
 promotionEnv: None
 promotionEnvAppSet: None
