@@ -13,6 +13,7 @@ spec:
   template:
     spec:
       serviceAccountName: {{ .Values.serviceAccount }}
+      automountServiceAccountToken: true
       restartPolicy: Never
       containers:
         - name: test-runner-container
