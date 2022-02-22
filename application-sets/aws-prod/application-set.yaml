@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: node-web-app-prod
+  name: node-web-appset-prod
 spec:
   generators:
   - git:
       files:
       - path: resources/configurations/aws-prod/**/cluster-config.yaml
-      repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
+      repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git
       revision: HEAD
   template:
     metadata:
@@ -35,5 +35,5 @@ spec:
           - name: HELM_ARGS
             value: --set server={{ cluster.url }},namespace={{ cluster.namespace }}
           name: argocd-vault-plugin-helm
-        repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git
+        repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git
         targetRevision: HEAD

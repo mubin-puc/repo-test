@@ -1,11 +1,11 @@
-# cloudrock-cicd-poc
+# cloudrock-argocd-poc
 
 ## Development
 ```
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudrock-cicd-dev
+  name: cloudrock-argocd-dev
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -15,7 +15,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-dev
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git'
     targetRevision: HEAD
   project: application-sets
   syncPolicy:
@@ -29,7 +29,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudrock-cicd-stg
+  name: cloudrock-argocd-stg
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -39,7 +39,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-stg
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git'
     targetRevision: HEAD
   project: application-sets
   syncPolicy:
@@ -53,7 +53,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudrock-cicd-preprod
+  name: cloudrock-argocd-preprod
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -63,7 +63,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-preprod
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git'
     targetRevision: HEAD
   project: application-sets
 
@@ -74,7 +74,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: cloudrock-cicd-prod
+  name: cloudrock-argocd-prod
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -84,7 +84,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-prod
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-cicd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git'
     targetRevision: HEAD
   project: application-sets
 ```
