@@ -37,7 +37,7 @@ spec:
               cluster.host }}
           name: argocd-vault-plugin-helm
         repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git
-        targetRevision: v2022-03-07_20-08-37
+        targetRevision: null
       syncPolicy:
         automated:
           prune: true
