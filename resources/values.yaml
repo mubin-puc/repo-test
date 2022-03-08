@@ -1,7 +1,7 @@
 application: node-web-app
 clusterRoleBinding: cicd-crb
 deploymentPromoterSecret: cicd-dp-secret
-image: us.icr.io/cloudrock_cicd/dockerized-node-js:v1.1
+image: us.icr.io/cloudrock_cicd/dockerized-node-js:v1.0
 imagePullSecret: cicd-ips
 serviceAccount: cicd-sa
 testRunnerSecret: cicd-tr-secret
