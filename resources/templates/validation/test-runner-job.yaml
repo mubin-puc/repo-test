@@ -17,7 +17,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: test-runner-container
-          image: us.icr.io/cloudrock_cicd/test-runner:stable
+          image: icr.io/automation-saas-platform/cicd/test-runner:stable
           imagePullPolicy: Always
           envFrom:
             - secretRef:
