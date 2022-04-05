@@ -16,7 +16,7 @@ spec:
       restartPolicy: Never
       containers:
         - name: deployment-promoter-container
-          image: us.icr.io/cloudrock_cicd/deployment-promoter:stable
+          image: icr.io/automation-saas-platform/cicd/deployment-promoter:stable
           imagePullPolicy: Always
           envFrom:
             - secretRef:
