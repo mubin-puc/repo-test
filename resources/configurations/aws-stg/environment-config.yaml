@@ -1,4 +1,5 @@
 awsToken: aws-token-stg
 environment: staging
+previousEnvAppSet: None
 promotionEnv: pre-production
 promotionEnvAppSet: application-sets/aws-preprod/application-set.yaml
