@@ -33,10 +33,11 @@ spec:
           - name: HELM_VALUES
             value: --values values.yaml --values configurations/aws-stg/environment-config.yaml
           - name: HELM_ARGS
-            value: --set server={{ cluster.url }},namespace={{ cluster.namespace }},host={{ cluster.host }}
+            value: --set server={{ cluster.url }},namespace={{ cluster.namespace }},host={{
+              cluster.host }}
           name: argocd-vault-plugin-helm
         repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git
-        targetRevision: HEAD
+        targetRevision: v2022-04-12_06-32-51-d8369e2
       syncPolicy:
         automated:
           prune: true
