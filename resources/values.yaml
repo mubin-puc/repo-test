@@ -1,7 +1,7 @@
 application: node-web-app
 clusterRoleBinding: cicd-crb
 deploymentPromoterSecret: cicd-dp-secret
-image: icr.io/automation-saas-platform/cicd/cloudrock-ci-poc:20220412182627-main-7b981779a061ed5a938197fd598d274f16a552f9
+image: icr.io/automation-saas-platform/cicd/cloudrock-ci-poc:20220422180805-main-7b981779a061ed5a938197fd598d274f16a552f9
 imagePullSecret: cicd-ips
 serviceAccount: cicd-sa
 testRunnerSecret: cicd-tr-secret
