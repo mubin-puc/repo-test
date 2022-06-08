@@ -66,8 +66,13 @@ spec:
     repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
-
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
 ```
+
+_**Note:** The `ApplicationSet` for the environment uses a manual sync policy._
 
 ## Production 
 ```
@@ -87,4 +92,10 @@ spec:
     repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
 ```
+
+_**Note:** The `ApplicationSet` for the environment uses a manual sync policy._
