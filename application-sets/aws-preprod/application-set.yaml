@@ -1,13 +1,13 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: node-web-app-set-preprod
+  name: asp-cicd-poc-preprod
 spec:
   generators:
   - git:
       files:
       - path: resources/configurations/aws-preprod/**/cluster-config.yaml
-      repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git
+      repoURL: https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git
       revision: HEAD
   template:
     metadata:
@@ -16,7 +16,7 @@ spec:
         environment: pre-production
         instance: '{{ instance.id }}'
         region: '{{ region }}'
-      name: node-web-app-preprod-{{instance.id}}
+      name: asp-cicd-poc-preprod-{{instance.id}}
     spec:
       destination:
         namespace: '{{ cluster.namespace }}'
@@ -25,7 +25,7 @@ spec:
       - jqPathExpressions:
         - .imagePullSecrets[] | select(.name | contains("dockercfg"))
         kind: ServiceAccount
-      project: cicd
+      project: cloudrock-cicd
       source:
         path: resources
         plugin:
@@ -35,5 +35,5 @@ spec:
           - name: HELM_ARGS
             value: --set server={{ cluster.url }},namespace={{ cluster.namespace }},host={{ cluster.host }}
           name: argocd-vault-plugin-helm
-        repoURL: https://github.ibm.com/automation-paas-cd-pipeline/cloudrock-argocd-poc.git
+        repoURL: https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git
         targetRevision: HEAD
