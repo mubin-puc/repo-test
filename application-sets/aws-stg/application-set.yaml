@@ -35,7 +35,9 @@ spec:
           - name: HELM_ARGS
             value: --set server={{ cluster.url }},namespace={{ cluster.namespace }},host={{
               cluster.host }}
-          name: argocd-vault-plugin-helm
+          - name: AVP_SECRET
+            value: argocd-aws-test-asp-credentials
+          name: argocd-vault-plugin-custom
         repoURL: https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git
         targetRevision: v2022-05-23_22-56-18-3dba8c2
       syncPolicy:
