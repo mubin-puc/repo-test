@@ -4,7 +4,7 @@ metadata:
   name: "{{ .Values.application }}-config-{{ .Values.environment }}"
   namespace: {{ .Values.namespace }}
   annotations:
-    argocd.argoproj.io/sync-wave: "3"
+    argocd.argoproj.io/sync-wave: "4"
 data:
   VERSION: "{{ .Values.version }}"
   HOST: "0.0.0.0"
