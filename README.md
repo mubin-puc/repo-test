@@ -5,7 +5,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: asp-argocd-dev
+  name: asp-cicd-dev
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -15,7 +15,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-dev
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-cicd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
   syncPolicy:
@@ -29,7 +29,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: asp-argocd-stg
+  name: asp-cicd-stg
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -39,7 +39,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-stg
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-cicd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
   syncPolicy:
@@ -53,7 +53,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: asp-argocd-preprod
+  name: asp-cicd-preprod
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -63,7 +63,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-preprod
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-cicd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
 
@@ -74,7 +74,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: asp-argocd-prod
+  name: asp-cicd-prod
   finalizers:
   - resources-finalizer.argocd.argoproj.io
 spec:
@@ -84,7 +84,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-prod
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-cicd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
 ```
