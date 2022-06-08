@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: asp-cicd-poc-dev
+  name: asp-cicd-dev
 spec:
   generators:
   - git:
@@ -16,7 +16,7 @@ spec:
         environment: development
         instance: '{{ instance.id }}'
         region: '{{ region }}'
-      name: asp-cicd-poc-dev-{{instance.id}}
+      name: asp-cicd-dev-{{instance.id}}
     spec:
       destination:
         namespace: '{{ cluster.namespace }}'

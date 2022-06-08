@@ -2,9 +2,9 @@ region: us-east
 prebindingId: pre-jn7o1558-022c-56ac-4e3c-32g5e5641fg6
 instance:
   id: op89ce02-6b56-500f-4b0c-3414612k4m9j
-  name: asp-cicd-poc
+  name: asp-cicd
 cluster:
   id: cdb3961f-9373-46d1-9505-e57f46306f65
   url: https://api.ap-dp-001.o3lu.p1.openshiftapps.com:6443
-  namespace: asp-cicd-poc
-  host: node-web-app-service-asp-cicd-poc.apps.ap-dp-001.o3lu.p1.openshiftapps.com
+  namespace: asp-cicd
+  host: node-web-app-service-asp-cicd.apps.ap-dp-001.o3lu.p1.openshiftapps.com
