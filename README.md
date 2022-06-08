@@ -11,7 +11,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: argocd
+    namespace: argocd-worker
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-dev
@@ -35,7 +35,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: argocd
+    namespace: argocd-worker
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-stg
@@ -59,7 +59,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: argocd
+    namespace: argocd-worker
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-preprod
@@ -80,7 +80,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: argocd
+    namespace: argocd-worker
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-prod
