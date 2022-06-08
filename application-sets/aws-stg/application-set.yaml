@@ -16,7 +16,7 @@ spec:
         environment: staging
         instance: '{{ instance.id }}'
         region: '{{ region }}'
-      name: asp-cicd-stg-{{instance.id}}
+      name: node-web-app-{{instance.id}}
     spec:
       destination:
         namespace: '{{ cluster.namespace }}'

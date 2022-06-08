@@ -16,7 +16,7 @@ spec:
         environment: pre-production
         instance: '{{ instance.id }}'
         region: '{{ region }}'
-      name: asp-cicd-preprod-{{instance.id}}
+      name: node-web-app-{{instance.id}}
     spec:
       destination:
         namespace: '{{ cluster.namespace }}'

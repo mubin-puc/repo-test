@@ -1,4 +1,4 @@
-application: asp-argocd-poc
+application: node-web-app
 role: cicd-role
 roleBinding: cicd-rb
 deploymentPromoterSecret: cicd-dp-secret
