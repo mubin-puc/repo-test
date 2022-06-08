@@ -1,4 +1,3 @@
-awsToken: aws-token
 environment: production
 previousEnvAppSet: application-sets/aws-preprod/application-set.yaml
 promotionEnv: None

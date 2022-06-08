@@ -1,4 +1,3 @@
-awsToken: aws-token-stg
 environment: staging
 previousEnvAppSet: None
 promotionEnv: pre-production

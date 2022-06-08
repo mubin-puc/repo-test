@@ -1,4 +1,3 @@
-awsToken: aws-token-dev
 environment: development
 previousEnvAppSet: None
 promotionEnv: staging
