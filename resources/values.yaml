@@ -1,8 +1,17 @@
-application: node-web-app
-clusterRoleBinding: cicd-crb
+application: asp-cicd-poc
+role: cicd-role
+roleBinding: cicd-rb
 deploymentPromoterSecret: cicd-dp-secret
+domain: automation.cloud.ibm.com
 image: icr.io/automation-saas-platform/cicd/cloudrock-ci-poc:20220523224645-main-c23fe52b44be2bca3a597a2cba1d76ebff783181
 imagePullSecret: cicd-ips
 serviceAccount: cicd-sa
+secrets:
+  dockerconfigjson: <path:automation-saas-platform/cicd/global-dockerconfigjson#automation-saas-platform/cicd/global-dockerconfigjson | base64encode>
+  testRunnerParameters: automation-saas-platform/cicd/test-runner-parameters
+  deploymentPromoterParameters: automation-saas-platform/cicd/deployment-promoter-parameters
+  artifactory: <artifactory-token | base64encode>
+  github: <github-token | base64encode>
+  slack: <slack-token | base64encode>
 testRunnerSecret: cicd-tr-secret
 version: 1.2.0

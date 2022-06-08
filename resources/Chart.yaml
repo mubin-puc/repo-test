@@ -1,5 +1,5 @@
 apiVersion: v2
-name: cloudrock-argocd-poc
+name: asp-argocd-poc
 description: Helm chart for the Dockerized Node JS Application
 type: application
 version: 0.1.0
