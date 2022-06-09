@@ -11,6 +11,12 @@ spec:
       revision: HEAD
   template:
     metadata:
+      annotations:
+        notifications.argoproj.io/subscribe.on-health-degraded.workspace1: C0251PZR7K8
+        notifications.argoproj.io/subscribe.on-sync-failed.workspace1: C0251PZR7K8
+        notifications.argoproj.io/subscribe.on-sync-running.workspace1: C0251PZR7K8
+        notifications.argoproj.io/subscribe.on-sync-status-unknown.workspace1: C0251PZR7K8
+        notifications.argoproj.io/subscribe.on-sync-succeeded.workspace1: C0251PZR7K8
       labels:
         cloud: aws
         environment: pre-production
