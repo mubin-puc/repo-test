@@ -1,4 +1,4 @@
-# asp-argocd-poc
+# mcsp-argocd-poc
 
 ## Build/Development
 ```
@@ -15,7 +15,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-dev
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/mcsp-argocd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
   syncPolicy:
@@ -39,7 +39,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-stg
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/mcsp-argocd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
   syncPolicy:
@@ -63,7 +63,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-preprod
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/mcsp-argocd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
   syncPolicy:
@@ -89,7 +89,7 @@ spec:
     server: 'https://kubernetes.default.svc'
   source:
     path: application-sets/aws-prod
-    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git'
+    repoURL: 'https://github.ibm.com/automation-paas-cd-pipeline/mcsp-argocd-poc.git'
     targetRevision: HEAD
   project: cloudrock-argoproj-resources
   syncPolicy:

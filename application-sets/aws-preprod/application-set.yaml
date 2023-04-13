@@ -7,7 +7,7 @@ spec:
   - git:
       files:
       - path: resources/configurations/aws-preprod/**/**/cluster-config.yaml
-      repoURL: https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git
+      repoURL: https://github.ibm.com/automation-paas-cd-pipeline/mcsp-argocd-poc.git
       revision: HEAD
   template:
     metadata:
@@ -44,5 +44,5 @@ spec:
           - name: AVP_SECRET
             value: argocd-aws-preprod-asp-credentials
           name: argocd-vault-plugin-helm-custom
-        repoURL: https://github.ibm.com/automation-paas-cd-pipeline/asp-argocd-poc.git
+        repoURL: https://github.ibm.com/automation-paas-cd-pipeline/mcsp-argocd-poc.git
         targetRevision: v2023-01-11_20-21-15-1f35539
