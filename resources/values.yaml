@@ -1,7 +1,7 @@
 application: node-web-app
 deploymentPromoterSecret: cicd-dp-secret
 domain: automation.cloud.ibm.com
-image: icr.io/automation-saas-platform/cicd/asp-ci-poc:20230412002733-main-214dd8e9fa7c70e6d623c88ee57a08e56644434a
+image: icr.io/automation-saas-platform/cicd/asp-ci-poc:20230427144302-main-39576614e853410b260a77cd27677ef01a01d143
 imagePullSecret: cicd-ips
 role: cicd-role
 roleBinding: cicd-rb
