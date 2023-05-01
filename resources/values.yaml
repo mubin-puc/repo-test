@@ -1,7 +1,7 @@
 application: node-web-app
 deploymentPromoterSecret: cicd-dp-secret
 domain: automation.cloud.ibm.com
-image: icr.io/automation-saas-platform/cicd/asp-ci-poc:20230501174634-1552-automate-branch-protections-da8613cdbf932adbf3ec2a61abfbb07b1b238b0c
+image: icr.io/automation-saas-platform/cicd/asp-ci-poc:20230501210526-main-c678dfc5192e6d82955998ca8eea76ea97764c25
 imagePullSecret: cicd-ips
 role: cicd-role
 roleBinding: cicd-rb
