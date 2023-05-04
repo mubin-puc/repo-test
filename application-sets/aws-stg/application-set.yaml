@@ -45,7 +45,7 @@ spec:
             value: argocd-aws-test-asp-credentials
           name: argocd-vault-plugin-helm-custom
         repoURL: https://github.ibm.com/automation-paas-cd-pipeline/mcsp-argocd-poc.git
-        targetRevision: v2023-05-01_21-16-00-a37b6e9
+        targetRevision: v2023-05-04_16-07-41-ca41693
       syncPolicy:
         automated:
           prune: true
