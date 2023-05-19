@@ -27,5 +27,15 @@ spec:
               cpu: "500m"
             requests:
               cpu: "250m"
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            allowPrivilegeEscalation: false
+            privileged: false
+            runAsNonRoot: true
+            runAsUser: 1000750000
+            capabilities:
+              drop:
+              - ALL
   parallelism: 1
   backoffLimit: 0
