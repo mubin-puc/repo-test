@@ -1,4 +1,4 @@
 environment: production
-previousEnvAppSet: application-sets/aws-preprod/application-set.yaml
+previousEnvAppSet: application-sets/aws-prod/application-set.yaml
 promotionEnv: None
 promotionEnvAppSet: None
