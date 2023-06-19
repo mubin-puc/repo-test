@@ -17,3 +17,5 @@ secrets:
 serviceAccount: cicd-sa
 testRunnerSecret: cicd-tr-secret
 version: 1.2.0
+
+environment: development # default value
