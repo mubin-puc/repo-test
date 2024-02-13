@@ -39,13 +39,12 @@ spec:
           - name: HELM_VALUES
             value: --values values.yaml --values configurations/aws-stg/environment-config.yaml
           - name: HELM_ARGS
-            value: --set server={{ cluster.url }},namespace={{ cluster.namespace }},host={{
-              cluster.host }}
+            value: --set server={{ cluster.url }},namespace={{ cluster.namespace }},host={{ cluster.host }}
           - name: AVP_SECRET
             value: argocd-aws-test-asp-credentials
           name: argocd-vault-plugin-helm-custom
         repoURL: https://github.ibm.com/automation-paas-cd-pipeline/mcsp-argocd-poc.git
-        targetRevision: v2023-06-23_07-17-30-aca9d72
+        targetRevision: v2024-02-13_04-54-51-aeabde6
       syncPolicy:
         automated:
           prune: true
