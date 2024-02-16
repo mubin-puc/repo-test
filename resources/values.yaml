@@ -1,16 +1,14 @@
 application: node-web-app
 deploymentPromoterSecret: cicd-dp-secret
 domain: automation.cloud.ibm.com
-image: icr.io/automation-saas-platform/cicd/asp-ci-poc:20240213041418-main-1fdd53f2a7be2bb82572fa6adc76a91e698c86e5
+image: ''
 imagePullSecret: cicd-ips
 role: cicd-role
 roleBinding: cicd-rb
 secrets:
   artifactory: <artifactory-token | base64encode>
-  deploymentPromoterParameters: <path:automation-saas-platform/cicd/deployment-promoter-parameters#github-token
-    | base64encode>
-  dockerconfigjson: <path:automation-saas-platform/cicd/global-dockerconfigjson#dockerconfigjson
-    | base64encode>
+  deploymentPromoterParameters: <path:automation-saas-platform/cicd/deployment-promoter-parameters#github-token | base64encode>
+  dockerconfigjson: <path:automation-saas-platform/cicd/global-dockerconfigjson#dockerconfigjson | base64encode>
   github: <github-token | base64encode>
   slack: <slack-token | base64encode>
   testRunnerParameters: automation-saas-platform/cicd/test-runner-parameters
