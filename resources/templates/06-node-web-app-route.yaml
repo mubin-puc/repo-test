@@ -9,5 +9,5 @@ spec:
   host: {{ .Values.host }}
   to:
     kind: Service
-    name: {{ .Values.application }}-service
+    name: "{{ .Values.application }}-service-{{ .Values.environment }}"
     weight: 100
