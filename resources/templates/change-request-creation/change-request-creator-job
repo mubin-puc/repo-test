@@ -1,0 +1,43 @@
+{{ if not (contains "prod" .Values.environment) }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: change-request-creator-
+  namespace: {{ .Values.namespace }}
+  labels:
+    type: host
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
+    argocd.argoproj.io/sync-wave: "16" # runs after the existing jobs
+spec:
+  template:
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount }}
+      #automountServiceAccountToken: true
+      restartPolicy: Never
+      containers:
+        - name: change-request-creator-container
+          image: icr.io/automation-saas-platform/cicd/sf-change-request-creator:latest
+          imagePullPolicy: Always
+          envFrom:
+            - secretRef:
+                name: {{ .Values.changeRequestCreatorSecret }}
+          resources:
+            limits:
+              cpu: "500m"
+            requests:
+              cpu: "250m"
+          securityContext:
+            seccompProfile:
+              type: RuntimeDefault
+            allowPrivilegeEscalation: false
+            privileged: false
+            runAsNonRoot: true
+            runAsUser: 1000750000
+            capabilities:
+              drop:
+              - ALL
+  parallelism: 1
+  backoffLimit: 0
+{{ end }}
