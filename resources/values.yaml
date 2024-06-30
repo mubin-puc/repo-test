@@ -16,6 +16,6 @@ secrets:
   testRunnerParameters: automation-saas-platform/cicd/test-runner-parameters
 serviceAccount: cicd-sa
 testRunnerSecret: cicd-tr-secret
-version: 1.2.0
+version: 1.2.1
 
 environment: development # default value
