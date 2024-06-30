@@ -1,0 +1,12 @@
+---
+# Source: node-web-app/templates/00-network-policy.yaml
+kind: NetworkPolicy
+apiVersion: networking.k8s.io/v1
+metadata:
+  name: deny-by-default
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+spec:
+  podSelector: {}
+  policyTypes:
+    - Ingress
