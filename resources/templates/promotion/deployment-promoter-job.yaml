@@ -28,5 +28,5 @@ spec:
             requests:
               cpu: "250m"
   parallelism: 1
-  backoffLimit: 0
+  backoffLimit: 1
   {{ end }}
