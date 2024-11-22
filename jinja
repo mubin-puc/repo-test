@@ -1,0 +1,25 @@
+[Unit]
+Description=HAProxy Load Balancer
+After=multi-user.target syslog.target network.target
+{% if inventory_hostname in groups['postgres'] %}
+After+=consul.service node_exporter.service postgresql_exporter.service patroni.service
+Wants=consul.service node_exporter.service postgresql_exporter.service
+{% elif inventory_hostname in groups['redis'] %}
+After+=redis_6379.service sentinel_26379.service
+Wants=network-online.target
+{% endif %}
+
+[Service]
+EnvironmentFile=-/etc/default/haproxy
+EnvironmentFile=-/etc/sysconfig/haproxy
+Environment="CONFIG=/etc/haproxy/haproxy.cfg" "PIDFILE=/run/haproxy.pid" "EXTRAOPTS=-S /run/haproxy-master.sock"
+ExecStart=/usr/sbin/haproxy -Ws -f $CONFIG -p $PIDFILE $EXTRAOPTS
+ExecReload=/usr/sbin/haproxy -Ws -f $CONFIG -c $EXTRAOPTS
+ExecReload=/bin/kill -USR2 $MAINPID
+KillMode=mixed
+Restart=always
+SuccessExitStatus=143
+Type=notify
+
+[Install]
+WantedBy=multi-user.target
