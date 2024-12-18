@@ -1,0 +1,16 @@
+  roles:
+    - role: vault_auth_secrets
+      vars:
+        vault:
+          api_uri: "http://vault.example.com:8200/v1"
+          namespace: "my-namespace"
+          role: "my-role"
+          vault_secret: "my-secret-id"
+        static_secret_engine: "my-secret-engine"
+        local_accounts:
+          - platform_type: "linux"
+            id: "admin"
+            key: "admin_password"
+          - platform_type: "windows"
+            id: "Administrator"
+            key: "win_admin_password"
