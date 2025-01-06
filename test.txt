@@ -1,16 +1,6 @@
-  roles:
-    - role: vault_auth_secrets
-      vars:
-        vault:
-          api_uri: "http://vault.example.com:8200/v1"
-          namespace: "my-namespace"
-          role: "my-role"
-          vault_secret: "my-secret-id"
-        static_secret_engine: "my-secret-engine"
-        local_accounts:
-          - platform_type: "linux"
-            id: "admin"
-            key: "admin_password"
-          - platform_type: "windows"
-            id: "Administrator"
-            key: "win_admin_password"
+index=security_logs (sourcetype=linux_secure OR sourcetype=auth OR sourcetype=syslog) 
+("sudo" OR "su") ("failed" OR "denied" OR "authentication failure")
+| stats count by host user _time sourcetype
+| lookup tfe_server.csv host as host OUTPUT env, server_type, region
+| table host, env, server_type, region, user, _time, sourcetype, count
+| where env="poc" AND server_type!="postgres"
