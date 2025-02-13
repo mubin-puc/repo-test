@@ -1,0 +1,16 @@
+This is calling getPassword() from NgcClient, which indicates that secrets are being fetched from the NGC Client.
+	•	The function System.getenv("JDBC_PASSWORD_KEY") suggests integration with environment-based secrets.
+	•	The code logs “Requesting for password from secret agent client”, which means this is a secret retrieval operation.
+
+🟢 Why NGC Client (not Wrapper)?
+
+✔ Secret retrieval is explicitly supported by NGC Client.
+✔ NgcClient.getPassword(nickName) directly interacts with secrets, which NGC Wrapper does not support as deeply.
+✔ If you ever need to extend security policies (e.g., VM-level security), NGC Client is the right choice.
+
+You would use NGC Client Wrapper only if:
+✅ You are running everything in containers (ECS-only support).
+✅ You only need to retrieve secrets without any additional security features.
+✅ You want minimal migration effort.
+
+But your code involves password retrieval and environment variables, making NGC Client the better fit.
