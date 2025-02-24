@@ -50,3 +50,5 @@ def create_redisearch_index():
 
 # Create RediSearch index
 create_redisearch_index()
+
+https://rpmfind.net/linux/fedora/linux/development/rawhide/Everything/x86_64/os/Packages/p/python3-redis-5.2.1-1.fc43.noarch.rpm
