@@ -1,0 +1,713 @@
+{
+    "engine": "SqlServer",
+    "instanceID": "fpfueadbsd002v",
+    "instanceResourceID": "db-EI4IVVEN7XCLOHZ7SSJRGZGD3Q",
+    "timestamp": "2025-06-25T16:08:37Z",
+    "version": 1,
+    "uptime": "316 days, 15:59:53",
+    "numVCPUs": 16,
+    "cpuUtilization": {
+        "idle": 93.97,
+        "kern": 0.19,
+        "user": 5.84
+    },
+    "memory": {
+        "commitTotKb": 121301156,
+        "commitLimitKb": 137930004,
+        "commitPeakKb": 122163024,
+        "physTotKb": 132687384,
+        "physAvailKb": 11991444,
+        "sysCacheKb": 2822460,
+        "kernTotKb": 1826080,
+        "kernPagedKb": 207384,
+        "kernNonpagedKb": 1618696,
+        "sqlServerTotKb": 114420608,
+        "pageSize": 4096
+    },
+    "system": {
+        "handles": 32204,
+        "threads": 1584,
+        "processes": 59
+    },
+    "disks": [
+        {
+            "name": "rdsdbdata",
+            "totalKb": 4252891072,
+            "usedKb": 2362429952,
+            "usedPc": 55.55,
+            "availKb": 1890461120,
+            "availPc": 44.45,
+            "rdCountPS": 29.28,
+            "rdBytesPS": 1571771.73,
+            "wrCountPS": 53.05,
+            "wrBytesPS": 2300851.2
+        }
+    ],
+    "network": [
+        {
+            "interface": "Ethernet 4",
+            "rdBytesPS": 262883.38,
+            "wrBytesPS": 75875.53
+        }
+    ],
+    "processList": [
+        {
+            "name": "OS processes",
+            "cpuUsedPc": 0.11,
+            "memUsedPc": 0.77,
+            "workingSetKb": 1321600,
+            "workingSetPrivKb": 1019620,
+            "workingSetShareableKb": 301980,
+            "virtKb": 68730120664
+        },
+        {
+            "name": "RDS processes",
+            "cpuUsedPc": 0.16,
+            "memUsedPc": 0.62,
+            "workingSetKb": 1192012,
+            "workingSetPrivKb": 817664,
+            "workingSetShareableKb": 374348,
+            "virtKb": 17190375272
+        },
+        {
+            "name": "fdlauncher.exe",
+            "pid": 6552,
+            "cpuUsedPc": 0,
+            "memUsedPc": 0,
+            "workingSetKb": 4940,
+            "workingSetPrivKb": 660,
+            "workingSetShareableKb": 4280,
+            "virtKb": 30352
+        },
+        {
+            "name": "sqlwriter.exe",
+            "pid": 11088,
+            "cpuUsedPc": 0,
+            "memUsedPc": 0.02,
+            "workingSetKb": 39768,
+            "workingSetPrivKb": 27600,
+            "workingSetShareableKb": 12168,
+            "virtKb": 149300
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "cpuUsedPc": 5.71,
+            "memUsedPc": 0.41,
+            "workingSetKb": 621640,
+            "workingSetPrivKb": 547620,
+            "workingSetShareableKb": 74020,
+            "virtKb": 186548044
+        },
+        {
+            "name": "SQLAGENT.EXE",
+            "pid": 9316,
+            "cpuUsedPc": 0,
+            "memUsedPc": 0.01,
+            "workingSetKb": 30068,
+            "workingSetPrivKb": 11368,
+            "workingSetShareableKb": 18700,
+            "virtKb": 2148134796
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10824,
+            "cpuUsedPc": 0.25
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12612,
+            "cpuUsedPc": 0.15
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6564,
+            "cpuUsedPc": 0.07
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 2628,
+            "cpuUsedPc": 0.19
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10616,
+            "cpuUsedPc": 0.2
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12652,
+            "cpuUsedPc": 0.15
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10404,
+            "cpuUsedPc": 0.18
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12456,
+            "cpuUsedPc": 0.21
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 2488,
+            "cpuUsedPc": 0.22
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 4012,
+            "cpuUsedPc": 0.18
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10184,
+            "cpuUsedPc": 0.06
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 7556,
+            "cpuUsedPc": 0.05
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 8980,
+            "cpuUsedPc": 0.31
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6264,
+            "cpuUsedPc": 0.06
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 5096,
+            "cpuUsedPc": 0.18
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12420,
+            "cpuUsedPc": 0.17
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 13288,
+            "cpuUsedPc": 0.05
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12376,
+            "cpuUsedPc": 0.21
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 9728,
+            "cpuUsedPc": 0.15
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11040,
+            "cpuUsedPc": 0.07
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3600,
+            "cpuUsedPc": 0.12
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6624,
+            "cpuUsedPc": 0.15
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 13304,
+            "cpuUsedPc": 0.16
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3128,
+            "cpuUsedPc": 0.07
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10348,
+            "cpuUsedPc": 0.05
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 4064,
+            "cpuUsedPc": 0.05
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 260,
+            "cpuUsedPc": 0.31
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 7300,
+            "cpuUsedPc": 0.14
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3572,
+            "cpuUsedPc": 0.21
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10196,
+            "cpuUsedPc": 0.18
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 9076,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11352,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 7372,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 9124,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3688,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 13108,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 5880,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6848,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11120,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11424,
+            "cpuUsedPc": 0.04
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12768,
+            "cpuUsedPc": 0.03
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6796,
+            "cpuUsedPc": 0.03
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10128,
+            "cpuUsedPc": 0.03
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12564,
+            "cpuUsedPc": 0.03
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11484,
+            "cpuUsedPc": 0.03
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 9352,
+            "cpuUsedPc": 0.03
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 8800,
+            "cpuUsedPc": 0.03
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3596,
+            "cpuUsedPc": 0.03
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3204,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11668,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 4628,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11056,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 508,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 7792,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3840,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11956,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6432,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10208,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 1292,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 4540,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 4240,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 7812,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 5024,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3040,
+            "cpuUsedPc": 0.02
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 9928,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 8496,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11188,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 8652,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12940,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6708,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12012,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 7428,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 4604,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6544,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11396,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10452,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10780,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3024,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6000,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10100,
+            "cpuUsedPc": 0.01
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6516,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12868,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 5832,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12556,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 11284,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 2296,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 436,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 9536,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 4656,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6228,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 1904,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 1252,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10936,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3400,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 6760,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 12028,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 4252,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 7060,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 3012,
+            "cpuUsedPc": 0
+        },
+        {
+            "name": "sqlservr.exe",
+            "pid": 8892,
+            "tid": 10696,
+            "cpuUsedPc": 0
+        }
+    ]
+}
