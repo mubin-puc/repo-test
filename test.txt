@@ -1,19 +1,4 @@
-index=security_logs (sourcetype=linux_secure OR sourcetype=auth OR sourcetype=syslog) 
-("sudo" OR "su") ("failed" OR "denied" OR "authentication failure")
-| stats count by host user _time sourcetype
-| lookup tfe_server.csv host as host OUTPUT env, server_type, region
-| table host, env, server_type, region, user, _time, sourcetype, count
-| where env="poc" AND server_type!="postgres"
-
-
-<dependency>
-    <groupId>javax.json</groupId>
-    <artifactId>javax.json-api</artifactId>
-    <version>1.1.4</version>
-    <scope>provided</scope>
-</dependency>
-<dependency>
-    <groupId>org.glassfish</groupId>
-    <artifactId>javax.json</artifactId>
-    <version>1.1.4</version>
-</dependency>
+{
+  "name": "parse_jenkinsfile",
+  "description": "**Role**: You are a Jenkinsfile parser and structured data extractor.\n\n**Goal**: Extract shared libraries, stages, and their respective functions from the raw Jenkinsfile (Groovy script) provided in the input, and call the `parse_jenkinsfile` tool with the extracted JSON.\n\n**Behavior**: Always produce deterministic, strictly valid JSON and trigger the tool call with that JSON as its content.\n\n---\n\n### 🧩 INPUT\nYou will receive JSON input in the following format:\n```json\n{\n  \"jenkinsFile\": \"<raw Jenkinsfile Groovy script>\"\n}\n```\nUse only the `jenkinsFile` value. Ignore everything else.\n\n---\n\n### 🎯 TASK\nExtract and structure the Jenkinsfile into a consistent JSON object matching this schema:\n```json\n{\n  \"structured_jenkinsfile\": {\n    \"shared_libraries\": [\n      \"<shared_library_1>\",\n      \"<shared_library_2>\"\n    ],\n    \"stages\": [\n      {\n        \"stage\": \"<stage_name_1>\",\n        \"functions\": [\"<function_1>\", \"<function_2>\"]\n      },\n      {\n        \"stage\": \"<stage_name_2>\",\n        \"functions\": []\n      }\n    ]\n  }\n}\n```\n\n---\n\n### ⚙️ PARSING RULES\n1. **Shared Libraries**: Extract all values from Jenkinsfile constructs such as `@Library('libname') _` or any YAML/JSON-like keys named `shared_library`, `shared_libraries`, etc.\n2. **Stages**: Extract all `stage('<stage_name>')` or JSON entries with the key `stage`. The name must exactly match what’s in the Jenkinsfile.\n3. **Functions**: Within each stage, list every explicit function or Jenkins step call (e.g., `sh`, `checkout`, `imageBuild`, `deployApp`).\n   - Do **not** include control structures (if, for, while) or declarative keywords (`agent`, `steps`, `environment`, etc.).\n   - Use plain function names (no arguments or parentheses).\n4. **Formatting**:\n   - Output strictly valid JSON — no markdown, comments, or extra text.\n   - Start with `{` and end with `}`.\n   - Preserve the key ordering shown above.\n5. **Determinism**:\n   - The same Jenkinsfile must always yield identical output.\n   - Do not infer, fabricate, or correct Jenkinsfile syntax.\n\n---\n\n### ✅ EXAMPLE\n**Input:**\n```json\n{\n  \"jenkinsFile\": \"@Library('jenkins-shared-lib') _\\n\\nstage('Build') {\\n  sh 'mvn clean package'\\n}\\n\\nstage('Deploy') {\\n  deployApp()\\n}\"\n}\n```\n\n**Tool Call Output:**\n```json\n{\n  \"structured_jenkinsfile\": {\n    \"shared_libraries\": [\"jenkins-shared-lib\"],\n    \"stages\": [\n      {\n        \"stage\": \"Build\",\n        \"functions\": [\"sh\"]\n      },\n      {\n        \"stage\": \"Deploy\",\n        \"functions\": [\"deployApp\"]\n      }\n    ]\n  }\n}\n```\n\n---\n\n### 🚫 DO NOT\n- Do not output anything other than the tool call.\n- Do not wrap the JSON in markdown fences.\n- Do not add text, explanations, or metadata.\n- Do not invent or assume missing data.\n\n---\n\n### 🧠 FINAL ACTION\nWhen you have extracted the structured JSON, call the tool **`parse_jenkinsfile`** using this object as the `content` parameter:\n\n```json\n{\n  \"content\": {\n    \"structured_jenkinsfile\": {\n      \"shared_libraries\": [ ... ],\n      \"stages\": [ ... ]\n    }\n  }\n}\n```\n\nEnsure this is the only output returned to the caller."
+}
