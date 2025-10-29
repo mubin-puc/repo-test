@@ -1,4 +1,236 @@
-{
-  "name": "parse_jenkinsfile",
-  "description": "**Role**: You are a Jenkinsfile parser and structured data extractor.\n\n**Goal**: Extract shared libraries, stages, and their respective functions from the raw Jenkinsfile (Groovy script) provided in the input, and call the `parse_jenkinsfile` tool with the extracted JSON.\n\n**Behavior**: Always produce deterministic, strictly valid JSON and trigger the tool call with that JSON as its content.\n\n---\n\n### 🧩 INPUT\nYou will receive JSON input in the following format:\n```json\n{\n  \"jenkinsFile\": \"<raw Jenkinsfile Groovy script>\"\n}\n```\nUse only the `jenkinsFile` value. Ignore everything else.\n\n---\n\n### 🎯 TASK\nExtract and structure the Jenkinsfile into a consistent JSON object matching this schema:\n```json\n{\n  \"structured_jenkinsfile\": {\n    \"shared_libraries\": [\n      \"<shared_library_1>\",\n      \"<shared_library_2>\"\n    ],\n    \"stages\": [\n      {\n        \"stage\": \"<stage_name_1>\",\n        \"functions\": [\"<function_1>\", \"<function_2>\"]\n      },\n      {\n        \"stage\": \"<stage_name_2>\",\n        \"functions\": []\n      }\n    ]\n  }\n}\n```\n\n---\n\n### ⚙️ PARSING RULES\n1. **Shared Libraries**: Extract all values from Jenkinsfile constructs such as `@Library('libname') _` or any YAML/JSON-like keys named `shared_library`, `shared_libraries`, etc.\n2. **Stages**: Extract all `stage('<stage_name>')` or JSON entries with the key `stage`. The name must exactly match what’s in the Jenkinsfile.\n3. **Functions**: Within each stage, list every explicit function or Jenkins step call (e.g., `sh`, `checkout`, `imageBuild`, `deployApp`).\n   - Do **not** include control structures (if, for, while) or declarative keywords (`agent`, `steps`, `environment`, etc.).\n   - Use plain function names (no arguments or parentheses).\n4. **Formatting**:\n   - Output strictly valid JSON — no markdown, comments, or extra text.\n   - Start with `{` and end with `}`.\n   - Preserve the key ordering shown above.\n5. **Determinism**:\n   - The same Jenkinsfile must always yield identical output.\n   - Do not infer, fabricate, or correct Jenkinsfile syntax.\n\n---\n\n### ✅ EXAMPLE\n**Input:**\n```json\n{\n  \"jenkinsFile\": \"@Library('jenkins-shared-lib') _\\n\\nstage('Build') {\\n  sh 'mvn clean package'\\n}\\n\\nstage('Deploy') {\\n  deployApp()\\n}\"\n}\n```\n\n**Tool Call Output:**\n```json\n{\n  \"structured_jenkinsfile\": {\n    \"shared_libraries\": [\"jenkins-shared-lib\"],\n    \"stages\": [\n      {\n        \"stage\": \"Build\",\n        \"functions\": [\"sh\"]\n      },\n      {\n        \"stage\": \"Deploy\",\n        \"functions\": [\"deployApp\"]\n      }\n    ]\n  }\n}\n```\n\n---\n\n### 🚫 DO NOT\n- Do not output anything other than the tool call.\n- Do not wrap the JSON in markdown fences.\n- Do not add text, explanations, or metadata.\n- Do not invent or assume missing data.\n\n---\n\n### 🧠 FINAL ACTION\nWhen you have extracted the structured JSON, call the tool **`parse_jenkinsfile`** using this object as the `content` parameter:\n\n```json\n{\n  \"content\": {\n    \"structured_jenkinsfile\": {\n      \"shared_libraries\": [ ... ],\n      \"stages\": [ ... ]\n    }\n  }\n}\n```\n\nEnsure this is the only output returned to the caller."
-}
+import re
+from typing import List, Dict, Any
+
+class JenkinsfileParserService:
+    @staticmethod
+    def _remove_comments(text: str) -> str:
+        """Remove // line comments and /* ... */ block comments while preserving strings."""
+        # Remove block comments
+        text = re.sub(r"/\*.*?\*/", "", text, flags=re.DOTALL)
+        # Remove // comments (but avoid removing inside strings by a simple approach:
+        # split by lines and strip trailing //... if not inside quotes)
+        out_lines = []
+        for line in text.splitlines():
+            # find // that is not inside single/double quotes
+            i = 0
+            keep_until = len(line)
+            while True:
+                idx = line.find("//", i)
+                if idx == -1:
+                    break
+                # count quotes before idx to see if inside string (naive but works for most Jenkinsfiles)
+                before = line[:idx]
+                single = before.count("'") - before.count("\\'")
+                double = before.count('"') - before.count('\\"')
+                if (single % 2 == 0) and (double % 2 == 0):
+                    keep_until = idx
+                    break
+                else:
+                    i = idx + 2
+            out_lines.append(line[:keep_until])
+        return "\n".join(out_lines)
+
+    @staticmethod
+    def _find_shared_libraries(content: str) -> List[str]:
+        libs = []
+        seen = set()
+        # @Library('name') or @Library("name")
+        for m in re.finditer(r"@Library\(\s*['\"]([^'\"]+)['\"]\s*\)", content):
+            name = m.group(1).strip()
+            if name and name not in seen:
+                libs.append(name)
+                seen.add(name)
+        # patterns like: library identifier: 'name'  (common in your sample)
+        for m in re.finditer(r"library\s+identifier\s*:\s*['\"]([^'\"]+)['\"]", content, flags=re.IGNORECASE):
+            name = m.group(1).strip()
+            if name and name not in seen:
+                libs.append(name)
+                seen.add(name)
+        # keys like shared_library(s): "name" or 'name'
+        for m in re.finditer(r"(?:shared[_-]?libraries|shared[_-]?library)\s*[:=]\s*['\"]([^'\"]+)['\"]", content, flags=re.IGNORECASE):
+            name = m.group(1).strip()
+            if name and name not in seen:
+                libs.append(name)
+                seen.add(name)
+        return libs
+
+    @staticmethod
+    def _extract_block(content: str, start_brace_idx: int) -> str:
+        """Given index of an opening brace '{', return the block content including nested braces."""
+        i = start_brace_idx
+        n = len(content)
+        if i >= n or content[i] != '{':
+            return ""
+        depth = 0
+        j = i
+        # We'll track quotes to avoid counting braces inside strings
+        in_single = False
+        in_double = False
+        escape = False
+        while j < n:
+            ch = content[j]
+            if escape:
+                escape = False
+            elif ch == "\\":
+                escape = True
+            elif ch == "'" and not in_double:
+                in_single = not in_single
+            elif ch == '"' and not in_single:
+                in_double = not in_double
+            elif not in_single and not in_double:
+                if ch == "{":
+                    depth += 1
+                elif ch == "}":
+                    depth -= 1
+                    if depth == 0:
+                        # return substring from start to j inclusive
+                        return content[start_brace_idx + 1:j]  # inner block (without outer braces)
+            j += 1
+        return ""  # unmatched braces -> return empty
+
+    @staticmethod
+    def _find_stage_positions(content: str) -> List[Dict[str, Any]]:
+        """
+        Find stage('Name') occurrences and return list of dicts:
+        { 'name': <name>, 'start': <index of '{'>, 'block': <inner block str> }
+        """
+        results = []
+        pattern = re.compile(r"stage\s*\(\s*(['\"])(.*?)\1\s*\)\s*\{", re.DOTALL)
+        for m in pattern.finditer(content):
+            name = m.group(2).strip()
+            brace_idx = m.end() - 1  # position of '{'
+            block = JenkinsfileParserService._extract_block(content, brace_idx)
+            results.append({"name": name, "block": block})
+        return results
+
+    @staticmethod
+    def _extract_functions_from_block(block: str) -> List[str]:
+        """
+        Extract function/step names from a stage block.
+        - captures name(...) calls and 'sh ' usage.
+        - excludes common declarative keywords and control keywords.
+        - preserves appearance order and uniqueness.
+        """
+        if not block:
+            return []
+        # simple normalization: remove strings to avoid picking function names inside strings
+        def _strip_strings(s: str) -> str:
+            # remove triple-quoted ''' ''' and """ """
+            s = re.sub(r"'''(?:.|\n)*?'''", " ", s)
+            s = re.sub(r'"""(?:.|\n)*?"""', " ", s)
+            # remove single-line quoted strings
+            s = re.sub(r"'(?:\\'|[^'])*'", " ", s)
+            s = re.sub(r'"(?:\\"|[^"])*"', " ", s)
+            return s
+
+        clean = _strip_strings(block)
+
+        # find function-like tokens: name(  OR sh <space>'string' (we already removed string content, but we still want sh)
+        # We'll capture sh by matching word sh followed by whitespace and a quote OR sh(
+        function_candidates = []
+        # find name( patterns
+        for m in re.finditer(r"\b([A-Za-z_]\w*)\s*\(", clean):
+            function_candidates.append(m.group(1))
+        # also find sh '...' or sh "..."
+        for m in re.finditer(r"\bsh\s+(?=['\"])", block):
+            function_candidates.append("sh")
+
+        # exclude keywords / declarative structure names
+        excluded = {
+            'agent','environment','stages','steps','post','script','options','parameters','tools',
+            'when','checkout','dir','stage','node','pipeline','parallel',
+            # control keywords
+            'if','else','for','while','switch','return','try','catch','finally',
+            # common Groovy/DSL words that could appear as identifiers but are not step names
+            'def','echo','println','timeout','timestamps','container','withEnv','withCredentials'
+        }
+
+        seen = set()
+        functions = []
+        for name in function_candidates:
+            lname = name.strip()
+            if not lname:
+                continue
+            # exclude numeric-starting tokens or purely keywords
+            if lname in excluded:
+                continue
+            # avoid things like println (you may choose to keep or remove; keeping echo/println might be noise)
+            # here we exclude println and echo to match your earlier rules; remove from excluded if you want them included
+            if lname in {'println','echo'}:
+                continue
+            if lname not in seen:
+                seen.add(lname)
+                functions.append(lname)
+        return functions
+
+    @staticmethod
+    def parse_jenkinsfile(content: str) -> Dict[str, Any]:
+        """
+        Main parse entry. Returns dict:
+        {
+          "structured_jenkinsfile": {
+              "shared_libraries": [...],
+              "stages": [{"stage": "Name", "functions": [...]}, ...]
+          }
+        }
+        """
+        if not content:
+            return {"structured_jenkinsfile": {"shared_libraries": [], "stages": []}}
+
+        # 1. sanitize - remove comments
+        clean = JenkinsfileParserService._remove_comments(content)
+
+        # 2. extract shared libraries (deterministic ordering: keep appearance order)
+        shared_libs = JenkinsfileParserService._find_shared_libraries(clean)
+
+        # 3. extract stages (appearance order)
+        stage_infos = JenkinsfileParserService._find_stage_positions(clean)
+
+        stages = []
+        for s in stage_infos:
+            name = s.get("name", "").strip()
+            block = s.get("block", "")
+            funcs = JenkinsfileParserService._extract_functions_from_block(block)
+            stages.append({"stage": name, "functions": funcs})
+
+        # return dict keeping key order as required
+        return {
+            "structured_jenkinsfile": {
+                "shared_libraries": shared_libs,
+                "stages": stages
+            }
+        }
+
+
+# -------------------------
+# Quick self-tests / examples
+# -------------------------
+if __name__ == "__main__":
+    sample = r"""
+    @Library('cpt-jenkins-sharedlib@v2.9.0') _
+    pipeline {
+      agent any
+      stages {
+        stage('Environment Setup') {
+          steps {
+            script {
+              checkCommitType()
+            }
+          }
+        }
+        stage("Jenkins Properties Setup") {
+          // no functions here
+        }
+        stage('Docker Image Build') {
+          steps {
+             sh 'docker build -t myimage .'
+             imageBuild()
+          }
+        }
+        // a library declared as a map style (example)
+        library identifier: 'another-lib@1.2.3', retriever: modernSCM(...)
+    }
+    """
+    parsed = JenkinsfileParserService.parse_jenkinsfile(sample)
+    import json
+    print(json.dumps(parsed, indent=2))
