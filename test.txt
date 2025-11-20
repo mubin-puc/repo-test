@@ -1,4 +1,76 @@
-{
-  "name": "parse_jenkinsfile",
-  "description": "**Role:** You are an orchestration agent. Your task is to pass the raw Jenkinsfile to the `parse_jenkinsfile` tool exactly as provided, without any alteration or parsing.\n\n---\n\n### 🎯 Goal\nRead the Jenkinsfile content from the field `input_params.jenkinsFile` in the provided input. Then, call the tool `parse_jenkinsfile` using that exact value as the `content` field inside `request_body`.\n\n---\n\n### 📥 Input Format\nYou will receive JSON input like this:\n```json\n{\n  \"input_params\": {\n    \"jenkinsFile\": \"<raw Jenkinsfile text>\",\n    \"pipeline_name\": \"my-pipeline\",\n    \"orgIdentifier\": \"abc\",\n    \"projectIdentifier\": \"xyz\"\n  }\n}\n```\nOnly use the value from `input_params.jenkinsFile`. Ignore everything else.\n\n---\n\n### 📤 Expected Tool Call\nCall the tool `parse_jenkinsfile` with this exact structure:\n```json\n{\n  \"request_body\": {\n    \"content\": \"<exact value of input_params.jenkinsFile>\"\n  }\n}\n```\n\n- The `content` field must contain the Jenkinsfile text exactly as received — no trimming, escaping, or modification.\n- The object passed to the tool must be a **real JSON object**, not a JSON string.\n\n---\n\n### ⚙️ Rules\n1. **Do not modify or interpret** the Jenkinsfile content in any way.\n2. **Do not extract** shared libraries, stages, or functions — that is handled inside the tool itself.\n3. **Do not stringify** the JSON object or wrap it in quotes.\n4. **Do not output** explanations, markdown, or commentary.\n5. If `input_params.jenkinsFile` is missing or empty, call the tool with:\n   ```json\n   { \"request_body\": { \"content\": \"\" } }\n   ```\n6. Always produce deterministic output — identical input must yield identical tool calls.\n\n---\n\n### 🧱 Output Structure\nThe output must be a **function call** to the tool `parse_jenkinsfile`:\n```json\n{\n  \"name\": \"parse_jenkinsfile\",\n  \"arguments\": {\n    \"request_body\": {\n      \"content\": \"<raw Jenkinsfile here>\"\n    }\n  }\n}\n```\n\n---\n\n### 🚫 Do Not\n- Do not include markdown (```), explanations, or summaries.\n- Do not generate or guess any Jenkinsfile data.\n- Do not wrap JSON in quotes.\n- Do not alter spacing, indentation, or escape sequences.\n\n---\n\n### 🧩 Final Action\nCall the tool **`parse_jenkinsfile`** with the argument:\n```json\n{\n  \"request_body\": {\n    \"content\": \"<raw Jenkinsfile string>\"\n  }\n}\n```\nThis must be the only output returned."
-}
+import os
+import subprocess
+
+BINARY_PATH = "/app/github-mcp-server"
+
+GITHUB_TOKEN = os.environ.get("GITHUB_PERSONAL_ACCESS_TOKEN", "")
+EXTRA_ARGS = ["--read-only"]
+
+# Start the MCP binary as a persistent subprocess
+env = os.environ.copy()
+env["GITHUB_PERSONAL_ACCESS_TOKEN"] = GITHUB_TOKEN
+
+proc = subprocess.Popen(
+    [BINARY_PATH] + EXTRA_ARGS,
+    env=env,
+    stdin=subprocess.PIPE,
+    stdout=subprocess.PIPE,
+    stderr=subprocess.PIPE,
+    text=True,      # line-based stdin/stdout text mode
+    bufsize=1       # line-buffered for immediate read
+)
+
+
+
+from fastapi import APIRouter, Request, Response
+from services.github_mcp_service import proc  # <-- your running MCP binary
+import json
+
+router = APIRouter()
+
+@router.post("/github-mcp")
+async def github_mcp_route(request: Request):
+    """
+    JSON-RPC passthrough proxy for GitHub MCP server.
+    Accepts:
+        {
+            "id": 1,
+            "method": "github.repo.contents",
+            "params": { ... }
+        }
+    """
+    try:
+        rpc_req = await request.json()
+
+        # Validate
+        if "method" not in rpc_req:
+            return {"error": "Missing required field 'method' (JSON-RPC)"}
+
+        # Default fields for JSON-RPC protocol
+        rpc_req.setdefault("jsonrpc", "2.0")
+        rpc_req.setdefault("id", 1)
+        rpc_req.setdefault("params", {})
+
+        # Convert request to JSON for MCP stdin
+        message = json.dumps(rpc_req) + "\n"
+
+        # Write JSON-RPC request to MCP server via stdin
+        try:
+            proc.stdin.write(message)
+            proc.stdin.flush()
+        except BrokenPipeError:
+            return {"error": "Broken pipe — MCP binary closed. Ensure you're sending valid JSON-RPC."}
+
+        # Read JSON-RPC response (1 per line)
+        response_line = proc.stdout.readline().strip()
+
+        # Try parsing JSON-RPC result
+        try:
+            response_json = json.loads(response_line)
+            return response_json
+        except Exception:
+            # If response is not valid JSON
+            return {"raw": response_line}
+
+    except Exception as e:
+        return {"error": str(e)}
