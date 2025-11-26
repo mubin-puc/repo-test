@@ -8,7 +8,31 @@ WORKDIR /build
 
 # Install git
 RUN --mount=type=cache,target=/var/cache/apk \
-    apk add --no-cache git
+    apk add --no-cache git#!/bin/bash
+
+HARNESS_ACCOUNT="<your_account_id>"
+HARNESS_API_KEY="<your_api_key>"
+YAML_FILE="service.yaml"
+
+YAML_CONTENT=$(sed 's/"/\\"/g' "$YAML_FILE")
+
+RESPONSE=$(curl -s -X POST "https://app.harness.io/gateway/yaml/v1/validate" \
+  -H "Content-Type: application/json" \
+  -H "Harness-Account: $HARNESS_ACCOUNT" \
+  -H "x-api-key: $HARNESS_API_KEY" \
+  -d "{\"yaml\": \"$YAML_CONTENT\"}")
+
+echo "Validation Response:"
+echo "$RESPONSE"
+
+# Check if valid
+if echo "$RESPONSE" | grep -q "\"valid\": true"; then
+  echo "✅ YAML is valid."
+else
+  echo "❌ YAML is INVALID!"
+  exit 1
+fi
+
 
 # Copy source code
 COPY . .
