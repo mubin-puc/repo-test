@@ -1,77 +1,119 @@
-# Build stage for GitHub MCP server
-FROM golang:1.24-alpine AS build
-
-ARG VERSION="dev"
-
-# Set the working directory
-WORKDIR /build
-
-# Install git
-RUN --mount=type=cache,target=/var/cache/apk \
-    apk add --no-cache git#!/bin/bash
-
-HARNESS_ACCOUNT="<your_account_id>"
-HARNESS_API_KEY="<your_api_key>"
-YAML_FILE="service.yaml"
-
-YAML_CONTENT=$(sed 's/"/\\"/g' "$YAML_FILE")
-
-RESPONSE=$(curl -s -X POST "https://app.harness.io/gateway/yaml/v1/validate" \
-  -H "Content-Type: application/json" \
-  -H "Harness-Account: $HARNESS_ACCOUNT" \
-  -H "x-api-key: $HARNESS_API_KEY" \
-  -d "{\"yaml\": \"$YAML_CONTENT\"}")
-
-echo "Validation Response:"
-echo "$RESPONSE"
-
-# Check if valid
-if echo "$RESPONSE" | grep -q "\"valid\": true"; then
-  echo "✅ YAML is valid."
-else
-  echo "❌ YAML is INVALID!"
-  exit 1
-fi
-
-
-# Copy source code
-COPY . .
-
-# Build the server
-RUN --mount=type=cache,target=/go/pkg/mod \
-    --mount=type=cache,target=/root/.cache/go-build \
-    CGO_ENABLED=0 go build -ldflags="-s -w -X main.version=${VERSION} -X main.commit=$(git rev-parse HEAD) -X main.date=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
-    -o /bin/github-mcp-server cmd/github-mcp-server/main.go
-
-# Create startup script with better error handling and debugging
-RUN printf '#!/bin/sh\nset -e\necho "=== MCP GitHub Server Startup ==="\necho "Testing GitHub MCP server binary..."\nif ! /usr/local/bin/github-mcp-server --help >/dev/null 2>&1; then\n    echo "Warning: GitHub MCP server test failed, but continuing..."\nfi\necho "Starting mcp-proxy with GitHub MCP server..."\necho "Command: mcp-proxy --host 0.0.0.0 --port 8080 --debug --pass-environment /usr/local/bin/github-mcp-server stdio"\nexec mcp-proxy --host 0.0.0.0 --port 8080 --debug --pass-environment /usr/local/bin/github-mcp-server stdio "$@"\n' > /start-server.sh
-
-# Final stage with mcp-proxy
-FROM ghcr.io/sparfenyuk/mcp-proxy:latest
-
-# Install additional dependencies if needed
-RUN python3 -m ensurepip && pip install --no-cache-dir uv
-
-# Set environment variables
-ENV PATH="/usr/local/bin:$PATH" \
-    UV_PYTHON_PREFERENCE=only-system
-
-# Copy the GitHub MCP server binary and startup script from build stage
-COPY --from=build /bin/github-mcp-server /usr/local/bin/github-mcp-server
-COPY --from=build /start-server.sh /usr/local/bin/start-server.sh
-
-# Make them executable
-RUN chmod +x /usr/local/bin/github-mcp-server && \
-    chmod +x /usr/local/bin/start-server.sh
-
-# Expose the port for HTTP interface
-EXPOSE 8080
-
-# Set working directory
-WORKDIR /app
-
-# Use the startup script
-ENTRYPOINT ["/usr/local/bin/start-server.sh"]
-
-# Default empty CMD
-CMD []
+# ============================================================
+# Namespace
+# ============================================================
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: nfs-system
+---
+# ============================================================
+# NFS Server Storage PVC (backing storage for NFS exports)
+# ============================================================
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-storage
+  namespace: nfs-system
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi
+---
+# ============================================================
+# NFS Server Deployment (Exports /exports)
+# ============================================================
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nfs-server
+  namespace: nfs-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nfs-server
+  template:
+    metadata:
+      labels:
+        app: nfs-server
+    spec:
+      containers:
+        - name: nfs-server
+          image: itsthenetwork/nfs-server-alpine:latest
+          env:
+            - name: SHARED_DIRECTORY
+              value: /exports
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: nfs-data
+              mountPath: /exports
+          ports:
+            - containerPort: 2049
+            - containerPort: 111
+            - containerPort: 20048
+      volumes:
+        - name: nfs-data
+          persistentVolumeClaim:
+            claimName: nfs-storage
+---
+# ============================================================
+# NFS Server Service
+# ============================================================
+apiVersion: v1
+kind: Service
+metadata:
+  name: nfs-server
+  namespace: nfs-system
+spec:
+  selector:
+    app: nfs-server
+  ports:
+    - name: nfs
+      port: 2049
+      targetPort: 2049
+      protocol: TCP
+    - name: mountd
+      port: 20048
+      protocol: TCP
+    - name: rpcbind-tcp
+      port: 111
+      protocol: TCP
+    - name: rpcbind-udp
+      port: 111
+      protocol: UDP
+---
+# ============================================================
+# STATIC PV (manual directory must exist in NFS server)
+# ============================================================
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv-appdata
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    server: nfs-server.nfs-system.svc.cluster.local
+    path: "/exports/appdata"
+---
+# ============================================================
+# STATIC PVC: binds to the above PV
+# ============================================================
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: appdata-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+  volumeName: nfs-pv-appdata
